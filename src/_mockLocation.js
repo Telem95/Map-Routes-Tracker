@@ -5,7 +5,13 @@ import * as Location from "expo-location";
 
 const tenMetersWithDegrees = 0.0001;
 
-const getLocation = (increment) => {
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const getLocation = () => {
   return {
     timestamp: 1000000,
     coords: {
@@ -14,17 +20,15 @@ const getLocation = (increment) => {
       accuracy: 5,
       altitudeAccuracy: 5,
       altitude: 5,
-      latitude: 32.062586 + increment * tenMetersWithDegrees,
-      longitude: 34.829518 + increment * tenMetersWithDegrees,
+      latitude: 32.062586 + getRandomInt(-25, 25) * tenMetersWithDegrees,
+      longitude: 34.829518 + getRandomInt(-25, 25) * tenMetersWithDegrees,
     },
   };
 };
 
-let counter = 0;
 setInterval(() => {
   Location.EventEmitter.emit("Expo.locationChanged", {
     watchId: Location._getCurrentWatchId(),
-    location: getLocation(counter),
+    location: getLocation(),
   });
-  counter++;
 }, 1000);
