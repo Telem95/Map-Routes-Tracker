@@ -10,7 +10,6 @@ const Map = () => {
   if (!currentLocation) {
     return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
   }
-  console.log(currentLocation);
 
   return (
     <MapView
